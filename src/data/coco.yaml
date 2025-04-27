@@ -1,0 +1,64 @@
+# train: /Users/zg0ul/Coding/SAGER/dubai_license/yolov9/data/plates_dataset/train  # train images (relative to 'path') 118287 images
+# val: /Users/zg0ul/Coding/SAGER/dubai_license/yolov9/data/plates_dataset/valid  # val images (relative to 'path') 5000 images
+# test: /Users/zg0ul/Coding/SAGER/dubai_license/yolov9/data/plates_dataset/test  # 20288 of 40670 images, submit to https://competitions.codalab.org/competitions/20794
+# test: /Users/zg0ul/Coding/SAGER/dubai_license/yolov9/data/plates_dataset/test  # 20288 of 40670 images, submit to https://competitions.codalab.org/competitions/20794
+
+test: F:\Coding\python\dubai_license\yolov9\data\plates_dataset\test
+train: F:\Coding\python\dubai_license\yolov9\data\plates_dataset\train
+val: F:\Coding\python\dubai_license\yolov9\data\plates_dataset\valid
+
+nc: 50
+# Classes
+names:
+    0: "0"
+    1: "1"
+    2: "2"
+    3: "3"
+    4: "4"
+    5: "5"
+    6: "6"
+    7: "7"
+    8: "8"
+    9: "9"
+    10: "A"
+    11: "B"
+    12: "C"
+    13: "D"
+    14: "E"
+    15: "F"
+    16: "G"
+    17: "H"
+    18: "I"
+    19: "J"
+    20: "K"
+    21: "L"
+    22: "M"
+    23: "N"
+    24: "O"
+    25: "P"
+    26: "Q"
+    27: "R"
+    28: "S"
+    29: "T"
+    30: "U"
+    31: "V"
+    32: "W"
+    33: "X"
+    34: "Y"
+    35: "Z"
+    36: "exp"
+    37: "new_DUBAI"
+    38: "new_RAK"
+    39: "new_abudabi"
+    40: "new_ajman"
+    41: "new_am"
+    42: "new_fujairah"
+    43: "old_DUBAI"
+    44: "old_RAK"
+    45: "old_abudabi"
+    46: "old_ajman"
+    47: "old_am"
+    48: "old_fujira"
+    49: "old_sharka"
+    50: "plate"
+
