@@ -1,3 +1,6 @@
+from utils.filter_overlaping_detection import filter_overlapping_detections
+
+
 def extract_license_info(detections):
     """
     Extract emirate, category, and license number from license plate detections
@@ -42,6 +45,9 @@ def extract_license_info(detections):
             'area': area
         })
 
+    # Filter out overlapping detections, keeping only the highest confidence detection for each overlapping group
+    elements = filter_overlapping_detections(elements)
+
     # First identify the plate itself if it's in the detections
     plate_elements = [
         e for e in elements if 'plate' in str(e['class']).lower()]
@@ -56,7 +62,13 @@ def extract_license_info(detections):
     # Identify emirate - typically contains "DUBAI" in the class name
     emirate_elements = [e for e in elements if any(em in str(e['class']).upper(
     ) for em in ['DUBAI', 'AJMAN', 'SHARKA', 'ABUDABI', 'FUJIRA', 'RAK', 'AM'])]
-    emirate = emirate_elements[0]['class'] if emirate_elements else 'Unknown'
+
+    # FIX: Choose the emirate with highest confidence
+    if emirate_elements:
+        emirate_elements.sort(key=lambda x: x['confidence'], reverse=True)
+        emirate = emirate_elements[0]['class']
+    else:
+        emirate = 'Unknown'
 
     # Remove emirate from further processing
     if emirate_elements:
@@ -80,15 +92,17 @@ def extract_license_info(detections):
 
     # FIX 1: Check for known category letters that are common in UAE plates
     # UAE plates typically use letters like A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, V, W, X, Z
-    known_categories = set(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 
+    known_categories = set(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
                            'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'V', 'W', 'X', 'Z'])
-    
+
     # Look for known category letters first
-    category_candidates = [e for e in elements if str(e['class']).upper() in known_categories]
-    
+    category_candidates = [e for e in elements if str(
+        e['class']).upper() in known_categories]
+
     if category_candidates:
         # Found explicit category
-        category_elements = [category_candidates[0]]  # Use the first detected category
+        # Use the first detected category
+        category_elements = [category_candidates[0]]
         number_elements = [e for e in elements if e not in category_elements]
         # Sort number elements by x-coordinate
         number_elements.sort(key=lambda e: e['center'][0])
@@ -160,10 +174,10 @@ def extract_license_info(detections):
                     if significant_gap_indices:
                         # Use the most significant gap to split category and number
                         max_gap_idx = max(significant_gap_indices,
-                                        key=lambda i: gaps[i])
+                                          key=lambda i: gaps[i])
                         left_elements = elements[:max_gap_idx+1]
                         right_elements = elements[max_gap_idx+1:]
-                        
+
                         # FIX 5: Only use left elements as category if they're alphabetic
                         if all(isinstance(e['class'], str) and e['class'].isalpha() for e in left_elements):
                             category_elements = left_elements
@@ -185,7 +199,8 @@ def extract_license_info(detections):
                     # FIX 7: Only use first element as category if it's alphabetic
                     if elements and isinstance(elements[0]['class'], str) and elements[0]['class'].isalpha():
                         category_elements = [elements[0]]
-                        number_elements = elements[1:] if len(elements) > 1 else []
+                        number_elements = elements[1:] if len(
+                            elements) > 1 else []
                     else:
                         category_elements = []
                         number_elements = elements
@@ -196,7 +211,7 @@ def extract_license_info(detections):
     else:
         # FIX 8: Set category to Unknown if no valid category elements were found
         category = 'Unknown'
-    
+
     plate_number = ''.join([str(e['class']) for e in number_elements])
 
     # FIX 9: Modified post-processing to preserve fully numeric license numbers

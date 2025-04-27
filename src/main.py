@@ -28,7 +28,7 @@ plt.rcParams['figure.figsize'] = [16, 8]  # Set default figure size
 
 def parse_args():
     """Parse command line arguments."""
-    parser = argparse.ArgumentParser(description='Dubai License Plate Detection')
+    parser = argparse.ArgumentParser(description='UAE License Plate Detection')
     parser.add_argument('--weights', type=str, default='src/trained_models/gelan-c2/weights/best.pt',
                         help='Model weights path')
     parser.add_argument('--img-dir', type=str, default='src/data/plates_dataset/test/images',

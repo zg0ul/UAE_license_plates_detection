@@ -1,15 +1,15 @@
-# Dubai License Plate Recognition System
+# UAE License Plate Recognition System
 
-A sophisticated computer vision application for detecting and recognizing Dubai license plates using YOLOv9.
+A sophisticated computer vision application for detecting and recognizing UAE license plates using YOLOv9.
 
 ## Project Overview
 
-This project implements a license plate recognition system specifically designed for Dubai license plates. It uses YOLOv9 for object detection and offers two detection approaches:
+This project implements a license plate recognition system specifically designed for UAE license plates. It uses YOLOv9 for object detection and offers two detection approaches:
 
 1. **Single-stage detection**: Directly detects and recognizes characters on license plates in a single pass
 2. **Two-stage detection**: First detects the license plate in the image, then performs a second detection pass on the extracted plate region for more accurate character recognition
 
-The system can identify the emirate, category, and plate number from Dubai license plates.
+The system can identify the emirate, category, and plate number from UAE license plates.
 
 ## Features
 
@@ -31,7 +31,7 @@ The system can identify the emirate, category, and plate number from Dubai licen
 ## Project Structure
 
 ```
-dubai_license/
+UAE_license_plates_detection/
 ├── outputs/              # Output visualization images
 ├── src/
 │   ├── data/             # Dataset files and configuration
@@ -51,12 +51,14 @@ dubai_license/
 ## Installation
 
 1. Clone the repository:
+
 ```bash
-git clone https://github.com/yourusername/dubai_license.git
+git clone https://github.com/zg0ul/UAE_license_plates_detection
 cd dubai_license
 ```
 
 2. Install requirements:
+
 ```bash
 pip install -r src/requirements.txt
 ```
@@ -115,6 +117,7 @@ The single-stage approach detects license plate characters directly on the full 
 ### Two-Stage Detection
 
 The two-stage approach consists of:
+
 1. First detection pass: Locate the license plate in the image
 2. Plate extraction: Crop and process the detected license plate region
 3. Second detection pass: Perform character recognition on the extracted plate image
@@ -124,6 +127,7 @@ This method typically provides better accuracy, especially for challenging image
 ## Output
 
 The system outputs:
+
 - Visualizations of detection results
 - Extracted license plate information:
   - Emirate
@@ -132,8 +136,6 @@ The system outputs:
 - Detection confidence scores
 - Annotated images showing bounding boxes around detected objects
 
-
-
 ## Acknowledgements
 
 - [YOLOv9 for object detection](https://github.com/WongKinYiu/yolov9)
@@ -141,4 +143,4 @@ The system outputs:
 
 ## Contact
 
-zg0ul.contact@gmail.com
+<zg0ul.contact@gmail.com>
